@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>{{htmlWebpackPlugin.options.title}}</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" type="text/css" href="./main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
+  <script src="https://use.fontawesome.com/e25c74ff36.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>Выберите друзей</h1>
+    </header>
+
+    <div class="content">
+      <div class="search-container">
+        <div class="search">
+          <label for="search-left"><i class="fa fa-search" aria-hidden="true"></i></label>
+          <input id="search-left" type="text" placeholder="Начните вводить имя друга">
+        </div>
+        <div class="search">
+          <label for="search-right"><i class="fa fa-search" aria-hidden="true"></i></label>
+          <input id="search-right" type="text" placeholder="Начните вводить имя друга">
+        </div>
+      </div>
+      <div class="friends">
+        <div class="left">
+          <div class="title">Ваши друзья</div>
+          <ul class="friends__left"></ul>
+        </div>
+        <div class="right">
+          <div class="title">Друзья в списке</div>
+          <ul class="friends__right"></ul>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <button class="save">Сохранить</button>
+    </footer>
+  </div>
+</body>
+
+</html>
