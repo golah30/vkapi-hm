@@ -1,18 +1,51 @@
-var s = require('./2.js');
+import { listItem as template } from './template.js';
+import * as vk from './vk.js';
+import * as events from './event.js';
+import { init as dndInit } from './drag.js';
 
-let template = Handlebars.compile(s.template.listItem);
+let _template = Handlebars.compile(template),
+  container = document.querySelector('.friends');
 
-let context = {
-  items: [
-    {
-      title: 'title1'
-    },
-    {
-      title: 'title2'
+new Promise(resolve => (window.onload = resolve))
+  .then(() => events.init())
+  .then(() => vk.init())
+  .then(() => vk.query('users.get', { name_case: 'nom' }))
+  .then(response => {
+    container.dataset.id = response[0].id;
+  })
+  .then(() => vk.query('friends.get', { fields: 'photo_200', order: 'random' }))
+  .then(response => {
+    verifyLists(response);
+  })
+  .then(() => dndInit())
+  .catch(e => alert('Ошибка: ' + e.message));
+
+function verifyLists(response) {
+  let exc = localStorage[container.dataset.id],
+    leftList = document.querySelector('.friends__left'),
+    rightList = document.querySelector('.friends__right');
+
+  for (let item of response.items) {
+    if (typeof exc === 'undefined') {
+      leftList.innerHTML += _template(item);
+    } else {
+      if (isItemMatching(item, exc)) {
+        rightList.innerHTML += _template(item);
+      } else {
+        leftList.innerHTML += _template(item);
+      }
     }
-  ]
-};
+  }
+}
 
-let body = document.querySelector('body');
+function isItemMatching(item, exc) {
+  exc = JSON.parse(exc);
 
-// body.innerHTML = template(context);
+  for (let examplar of exc.friends) {
+    if (examplar == item.id) {
+      return true;
+    }
+  }
+
+  return false;
+}
