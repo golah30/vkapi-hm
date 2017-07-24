@@ -5,7 +5,7 @@ import { init as dndInit } from './drag.js';
 
 let _template = Handlebars.compile(template),
   container = document.querySelector('.friends');
-
+console.log(2 + 2);
 new Promise(resolve => (window.onload = resolve))
   .then(() => events.init())
   .then(() => vk.init())
